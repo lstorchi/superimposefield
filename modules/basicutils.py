@@ -140,7 +140,7 @@ def write_to_cube (mol1, mol1field, fname, xnstep, ynstep, znstep,\
 
 ###############################################################################
 
-def get_mean_gridfield (filename, weightfile):
+def get_mean_gridfield (filename, weightfile, probe, rootdir):
 
    xmin = float("inf")
    ymin = float("inf")
@@ -205,6 +205,10 @@ def get_mean_gridfield (filename, weightfile):
        len(weights)
      exit(1)
    
+   if rootdir != "./":
+       subprocess.call("ln -s "+rootdir+"fixpdb ./", shell=True)
+       subprocess.call("ln -s "+rootdir+"kouttokont ./", shell=True)
+
    energy = numpy.empty([1,1,1], float)
    globalindex = 0
    for conf1 in mol1list:
